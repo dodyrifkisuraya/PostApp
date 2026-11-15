@@ -15,6 +15,7 @@ interface DashboardContract {
 
     interface Presenter {
         fun loadPosts()
+        fun restorePosts(posts: List<Post>)
         fun toggleBookmark(post: Post)
         fun refreshBookmarkStatus()
         fun onDestroy()

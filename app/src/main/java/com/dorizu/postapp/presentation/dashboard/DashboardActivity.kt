@@ -1,6 +1,7 @@
 package com.dorizu.postapp.presentation.dashboard
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -36,7 +37,24 @@ class DashboardActivity : AppCompatActivity(), DashboardContract.View {
         val database = AppDatabase.getDatabase(this)
         val repository = PostRepository(ApiClient.apiService, database.bookmarkDao())
         presenter = DashboardPresenter(this, repository)
-        presenter.loadPosts()
+
+        val savedPosts = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            savedInstanceState?.getParcelableArrayList(EXTRA_SAVED_POSTS, Post::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            savedInstanceState?.getParcelableArrayList(EXTRA_SAVED_POSTS)
+        }
+
+        if (!savedPosts.isNullOrEmpty()) {
+            presenter.restorePosts(savedPosts)
+        } else {
+            presenter.loadPosts()
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelableArrayList(EXTRA_SAVED_POSTS, ArrayList(adapter.currentList))
     }
 
     override fun onResume() {
@@ -110,5 +128,6 @@ class DashboardActivity : AppCompatActivity(), DashboardContract.View {
 
     companion object {
         const val EXTRA_USERNAME = "extra_username"
+        private const val EXTRA_SAVED_POSTS = "extra_saved_posts"
     }
 }

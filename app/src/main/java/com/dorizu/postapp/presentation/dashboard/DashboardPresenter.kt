@@ -35,6 +35,11 @@ class DashboardPresenter(
         }
     }
 
+    override fun restorePosts(posts: List<Post>) {
+        currentPosts = posts.toMutableList()
+        view.showPosts(currentPosts.toList())
+    }
+
     override fun toggleBookmark(post: Post) {
         scope.launch {
             val newStatus = repository.toggleBookmark(post)
