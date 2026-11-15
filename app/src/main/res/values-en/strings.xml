@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">PostApp</string>
+
+    <string name="hint_username">Username</string>
+    <string name="hint_password">Password</string>
+    <string name="btn_login">Login</string>
+    <string name="error_empty_username">Username cannot be empty</string>
+    <string name="error_empty_password">Password cannot be empty</string>
+
+    <string name="dashboard_greeting">Hello,</string>
+    <string name="dashboard_title">Post List</string>
+    <string name="btn_bookmark_menu">Bookmarks</string>
+    <string name="btn_logout">Logout</string>
+    <string name="action_bookmark">Bookmark</string>
+    <string name="loading_posts">Loading data...</string>
+    <string name="empty_posts">No posts available.</string>
+    <string name="bookmark_success">Saved to bookmarks</string>
+    <string name="bookmark_removed">Removed from bookmarks</string>
+
+    <string name="bookmark_page_title">Saved Bookmarks</string>
+    <string name="btn_back">Back</string>
+    <string name="empty_bookmarks">No bookmarks saved yet.</string>
+
+    <string name="session_timeout_message">Session expired due to inactivity for 180 seconds</string>
+</resources>
