@@ -6,6 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.dorizu.postapp.databinding.ActivityLoginBinding
 import com.dorizu.postapp.presentation.dashboard.DashboardActivity
+import com.dorizu.postapp.utils.applySystemBarPadding
 
 class LoginActivity : AppCompatActivity(), LoginContract.View {
 
@@ -16,6 +17,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.root.applySystemBarPadding()
 
         presenter = LoginPresenter(this)
 
