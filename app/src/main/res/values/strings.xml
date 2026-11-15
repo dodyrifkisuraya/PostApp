@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">PostApp</string>
 
+    <!--    Login-->
     <string name="hint_username">Username</string>
     <string name="hint_password">Password</string>
     <string name="btn_login">Masuk</string>
