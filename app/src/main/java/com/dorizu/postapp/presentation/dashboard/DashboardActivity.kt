@@ -1,15 +1,18 @@
 package com.dorizu.postapp.presentation.dashboard
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dorizu.postapp.R
+import com.dorizu.postapp.data.local.room.AppDatabase
 import com.dorizu.postapp.data.model.Post
 import com.dorizu.postapp.data.remote.ApiClient
 import com.dorizu.postapp.data.repository.PostRepository
 import com.dorizu.postapp.databinding.ActivityDashboardBinding
+import com.dorizu.postapp.presentation.bookmark.BookmarkActivity
 import com.dorizu.postapp.utils.applySystemBarPadding
 
 class DashboardActivity : AppCompatActivity(), DashboardContract.View {
@@ -28,18 +31,34 @@ class DashboardActivity : AppCompatActivity(), DashboardContract.View {
         binding.tvProfileUsername.text = username
 
         setupRecyclerView()
+        setupAction()
 
-        val repository = PostRepository(ApiClient.apiService)
+        val database = AppDatabase.getDatabase(this)
+        val repository = PostRepository(ApiClient.apiService, database.bookmarkDao())
         presenter = DashboardPresenter(this, repository)
         presenter.loadPosts()
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (::presenter.isInitialized) {
+            presenter.refreshBookmarkStatus()
+        }
+    }
+
     private fun setupRecyclerView() {
-        adapter = PostAdapter { _ ->
-            Toast.makeText(this, getString(R.string.bookmark_success), Toast.LENGTH_SHORT).show()
+        adapter = PostAdapter { post ->
+            presenter.toggleBookmark(post)
         }
         binding.rvPosts.layoutManager = LinearLayoutManager(this)
         binding.rvPosts.adapter = adapter
+    }
+
+    private fun setupAction() {
+        binding.btnBookmarkMenu.setOnClickListener {
+            val intent = Intent(this, BookmarkActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun showLoading() {
@@ -68,6 +87,20 @@ class DashboardActivity : AppCompatActivity(), DashboardContract.View {
         binding.tvEmptyState.visibility = View.VISIBLE
         binding.tvEmptyState.text = message
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showBookmarkMessage(isBookmarked: Boolean) {
+        val msgRes = if (isBookmarked) R.string.bookmark_success else R.string.bookmark_removed
+        Toast.makeText(this, getString(msgRes), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun updatePostBookmarkStatus(updatedPost: Post) {
+        val currentList = adapter.currentList.toMutableList()
+        val index = currentList.indexOfFirst { it.id == updatedPost.id }
+        if (index != -1) {
+            currentList[index] = updatedPost
+            adapter.submitList(currentList)
+        }
     }
 
     override fun onDestroy() {

@@ -17,4 +17,10 @@
     <string name="loading_posts">Memuat data...</string>
     <string name="empty_posts">Belum ada postingan.</string>
     <string name="bookmark_success">Berhasil disimpan</string>
+    <string name="bookmark_removed">Dihapus dari bookmark</string>
+
+    <!--    Bookmark-->
+    <string name="bookmark_page_title">Bookmark Tersimpan</string>
+    <string name="btn_back">Kembali</string>
+    <string name="empty_bookmarks">Belum ada item yang dibookmark.</string>
 </resources>

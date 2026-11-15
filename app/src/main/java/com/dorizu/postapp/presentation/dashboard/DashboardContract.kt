@@ -9,10 +9,14 @@ interface DashboardContract {
         fun showPosts(posts: List<Post>)
         fun showEmpty()
         fun showError(message: String)
+        fun showBookmarkMessage(isBookmarked: Boolean)
+        fun updatePostBookmarkStatus(updatedPost: Post)
     }
 
     interface Presenter {
         fun loadPosts()
+        fun toggleBookmark(post: Post)
+        fun refreshBookmarkStatus()
         fun onDestroy()
     }
 }
