@@ -5,7 +5,6 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dorizu.postapp.R
 import com.dorizu.postapp.data.local.room.AppDatabase
@@ -13,10 +12,11 @@ import com.dorizu.postapp.data.model.Post
 import com.dorizu.postapp.data.remote.ApiClient
 import com.dorizu.postapp.data.repository.PostRepository
 import com.dorizu.postapp.databinding.ActivityDashboardBinding
+import com.dorizu.postapp.presentation.base.BaseSessionActivity
 import com.dorizu.postapp.presentation.bookmark.BookmarkActivity
 import com.dorizu.postapp.utils.applySystemBarPadding
 
-class DashboardActivity : AppCompatActivity(), DashboardContract.View {
+class DashboardActivity : BaseSessionActivity(), DashboardContract.View {
 
     private lateinit var binding: ActivityDashboardBinding
     private lateinit var presenter: DashboardContract.Presenter

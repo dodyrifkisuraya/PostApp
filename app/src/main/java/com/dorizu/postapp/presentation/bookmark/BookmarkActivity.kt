@@ -3,7 +3,6 @@ package com.dorizu.postapp.presentation.bookmark
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dorizu.postapp.R
 import com.dorizu.postapp.data.local.room.AppDatabase
@@ -11,10 +10,11 @@ import com.dorizu.postapp.data.model.Post
 import com.dorizu.postapp.data.remote.ApiClient
 import com.dorizu.postapp.data.repository.PostRepository
 import com.dorizu.postapp.databinding.ActivityBookmarkBinding
+import com.dorizu.postapp.presentation.base.BaseSessionActivity
 import com.dorizu.postapp.presentation.dashboard.PostAdapter
 import com.dorizu.postapp.utils.applySystemBarPadding
 
-class BookmarkActivity : AppCompatActivity(), BookmarkContract.View {
+class BookmarkActivity : BaseSessionActivity(), BookmarkContract.View {
 
     private lateinit var binding: ActivityBookmarkBinding
     private lateinit var presenter: BookmarkContract.Presenter
