@@ -21,6 +21,10 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".presentation.dashboard.DashboardActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

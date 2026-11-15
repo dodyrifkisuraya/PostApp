@@ -1,9 +1,11 @@
 package com.dorizu.postapp.presentation.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.dorizu.postapp.databinding.ActivityLoginBinding
+import com.dorizu.postapp.presentation.dashboard.DashboardActivity
 
 class LoginActivity : AppCompatActivity(), LoginContract.View {
 
@@ -52,7 +54,11 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     }
 
     override fun navigateToDashboard(username: String) {
-        // TODO: Navigate to Dashboard
+        val intent = Intent(this, DashboardActivity::class.java).apply {
+            putExtra(DashboardActivity.EXTRA_USERNAME, username)
+        }
+        startActivity(intent)
+        finish()
     }
 
     override fun onDestroy() {
