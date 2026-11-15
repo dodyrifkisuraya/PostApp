@@ -2,6 +2,7 @@ package com.dorizu.postapp.presentation.bookmark
 
 import com.dorizu.postapp.data.model.Post
 import com.dorizu.postapp.data.repository.PostRepository
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -10,10 +11,11 @@ import kotlinx.coroutines.launch
 
 class BookmarkPresenter(
     private val view: BookmarkContract.View,
-    private val repository: PostRepository
+    private val repository: PostRepository,
+    dispatcher: CoroutineDispatcher = Dispatchers.Main
 ) : BookmarkContract.Presenter {
 
-    private val scope = CoroutineScope(Dispatchers.Main + SupervisorJob())
+    private val scope = CoroutineScope(dispatcher + SupervisorJob())
 
     override fun loadBookmarks() {
         scope.launch {

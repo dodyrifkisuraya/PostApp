@@ -1,5 +1,6 @@
 package com.dorizu.postapp.presentation.login
 
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -8,10 +9,11 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class LoginPresenter(
-    private val view: LoginContract.View
+    private val view: LoginContract.View,
+    dispatcher: CoroutineDispatcher = Dispatchers.Main
 ) : LoginContract.Presenter {
 
-    private val scope = CoroutineScope(Dispatchers.Main + SupervisorJob())
+    private val scope = CoroutineScope(dispatcher + SupervisorJob())
 
     override fun login(username: String, password: String) {
         view.clearErrors()
